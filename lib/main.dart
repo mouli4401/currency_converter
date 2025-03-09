@@ -1,118 +1,96 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
+class CurrencyConverterMaterialPage extends StatefulWidget {
+  const CurrencyConverterMaterialPage({super.key});
+
+  @override
+  State<CurrencyConverterMaterialPage> createState() =>
+      _CurrencyConverterMaterialPageState();
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Home(),
-    );
+class _CurrencyConverterMaterialPageState
+    extends State<CurrencyConverterMaterialPage> {
+  double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
+
+  void convert() {
+    result = double.parse(textEditingController.text) * 80;
+    setState(() {});
   }
-}
 
-class Home extends StatelessWidget {
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final border = OutlineInputBorder(
+      borderSide: const BorderSide(
+        width: 2.0,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.circular(5),
+    );
+
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        elevation: 0,
+        title: const Text('Currency Converter'),
+      ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+            children: [
               Text(
-                "Home Page",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                'INR ${result != 0 ? result.toStringAsFixed(3) : result.toStringAsFixed(0)}',
+                style: const TextStyle(
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => About()),
-                      );
-                    },
-                    child: Text("About Us"),
+              TextField(
+                controller: textEditingController,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Please enter the amount in USD',
+                  hintStyle: const TextStyle(
+                    color: Colors.black,
                   ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Project()),
-                      );
-                    },
-                    child: Text("Project"),
+                  prefixIcon: const Icon(Icons.monetization_on_outlined),
+                  prefixIconColor: Colors.black,
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: border,
+                  enabledBorder: border,
+                ),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: convert,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                     Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Contact()),
-                      );
-                    },
-                    child: Text("Contact us"),
-                  ),
-                ],
+                ),
+                child: const Text('Convert'),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class About extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('About Us')),
-      body: Center(
-        child: Text(
-          "This is the About Us page",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
-
-
-class Project extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Project')),
-      body: Center(
-        child: Text(
-          "This is the Project page",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
-class Contact extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Contact')),
-      body: Center(
-        child: Text(
-          "This is the Contact page",
-          style: TextStyle(fontSize: 20),
         ),
       ),
     );
