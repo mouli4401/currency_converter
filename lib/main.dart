@@ -1,25 +1,120 @@
 import 'package:flutter/material.dart';
-import 'package:currency_converter/currency_converter_material_page.dart'; // Import your separate file
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-// Types of widgets
-// 1. StatelessWidget
-// 2. StatefulWidget
-// 3. InheritedWidget
-
-// 1. Material Design - created by Google
-// 2. Cupertino Design - created by Apple
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CurrencyConverterMaterialPage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Home')),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Home Page",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => About()),
+                      );
+                    },
+                    child: Text("About Us"),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Project()),
+                      );
+                    },
+                    child: Text("Project"),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                     Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Contact()),
+                      );
+                    },
+                    child: Text("Contact us"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class About extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('About Us')),
+      body: Center(
+        child: Text(
+          "This is the About Us page",
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
+
+
+class Project extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Project')),
+      body: Center(
+        child: Text(
+          "This is the Project page",
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
+class Contact extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Contact')),
+      body: Center(
+        child: Text(
+          "This is the Contact page",
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
     );
   }
 }
